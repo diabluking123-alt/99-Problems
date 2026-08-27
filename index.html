@@ -142,10 +142,10 @@
 <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 hover:bg-primary/10 h-full flex items-center px-4" href="#faq">FAQ</a>
 </nav>
 <div class="flex items-center gap-4">
-<button class="hidden md:flex bg-primary-container text-black px-6 py-3 font-button-text hover:neon-glow transition-shadow duration-300 items-center justify-center">
+<button id="get-configs-btn" class="hidden md:flex bg-primary-container text-black px-6 py-3 font-button-text hover:neon-glow transition-shadow duration-300 items-center justify-center">
                     Get Configs
                 </button>
-<button class="md:hidden text-on-surface-variant hover:text-primary p-2">
+<button id="menu-btn" class="md:hidden text-on-surface-variant hover:text-primary p-2">
 <span class="material-symbols-outlined">menu</span>
 </button>
 </div>
@@ -259,8 +259,13 @@
 <span class="text-primary">ON</span>
 </div>
 </div>
-<button class="mt-4 w-full bg-transparent border border-[#4D4D4D] text-on-surface py-2 font-button-text hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">download</span> Copy Config
+<button data-config="PUBG Core // Assault v2.4
+Sensibilidad: 800 DPI
+Smart Translator: PUBG Gen
+Balistica: Linear
+ADS Mod: 1.2x
+Steady Aim: ON" class="copy-btn mt-4 w-full bg-transparent border border-[#4D4D4D] text-on-surface py-2 font-button-text hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">shopping_cart</span> Comprar Script
                         </button>
 </div>
 <!-- Config Card 2 -->
@@ -293,8 +298,13 @@
 <span class="text-on-surface-variant">OFF</span>
 </div>
 </div>
-<button class="mt-4 w-full bg-primary-container/10 border border-primary text-primary py-2 font-button-text hover:bg-primary-container hover:text-black transition-colors flex items-center justify-center gap-2 neon-glow-hover">
-<span class="material-symbols-outlined text-sm">download</span> Copy Config
+<button data-config="Sniper Precision // Recon v1.9
+Sensibilidad: 400 DPI
+Smart Translator: PUBG Gen
+Balistica: Curve J
+ADS Mod: 0.8x
+Steady Aim: OFF" class="copy-btn mt-4 w-full bg-primary-container/10 border border-primary text-primary py-2 font-button-text hover:bg-primary-container hover:text-black transition-colors flex items-center justify-center gap-2 neon-glow-hover">
+<span class="material-symbols-outlined text-sm">shopping_cart</span> Comprar Script
                         </button>
 </div>
 </div>
@@ -345,7 +355,7 @@
 <div class="flex gap-6">
 <a class="text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
 <a class="text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
-<a class="text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="js-discord text-on-tertiary-fixed-variant hover:text-primary transition-colors" href="#" target="_blank" rel="noopener">Discord</a>
 </div>
 <div class="text-on-tertiary-fixed-variant text-right max-w-xs">
                     © 2024 #99 PROBLEMS. ALL RIGHTS RESERVED. HIGH-PERFORMANCE TELEMETRY.
@@ -354,8 +364,119 @@
 </footer>
 </main>
 <script>
-        // Simple accordion logic if added later, standard menu toggle
-    </script>
+    /* ==========================================================
+       CONFIGURACION — CAMBIA SOLO ESTAS 3 LINEAS
+       ========================================================== */
+    const DISCORD_URL  = "https://discord.gg/dqX5Z9PBw";  // tu enlace de invitacion
+    const PAYPAL_USER  = "TuUsuarioPayPal";                    // solo el usuario de paypal.me
+    const PRECIO       = "15";                                 // precio en USD, sin simbolo
+    /* ========================================================== */
+
+    // Enlaces de Discord (footer + modal)
+    document.querySelectorAll('.js-discord').forEach(a => a.href = DISCORD_URL);
+
+    // ---- Menu movil ----
+    const menuBtn = document.getElementById('menu-btn');
+    const nav = document.querySelector('header nav');
+    if (menuBtn && nav) {
+        menuBtn.addEventListener('click', () => {
+            ['hidden','flex','flex-col','absolute','top-full','left-0','w-full',
+             'bg-surface-container','border-t','border-[#4D4D4D]','py-4','z-40']
+            .forEach(c => nav.classList.toggle(c));
+        });
+    }
+
+    // ---- Boton Get Configs ----
+    const getConfigs = document.getElementById('get-configs-btn');
+    if (getConfigs) getConfigs.addEventListener('click', () =>
+        document.getElementById('configs').scrollIntoView({ behavior: 'smooth' }));
+
+    // ---- Generador de codigo de pedido ----
+    function generarCodigo() {
+        const abc = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // sin letras/numeros confusos
+        let bloque = n => Array.from({length:n}, () =>
+            abc[Math.floor(Math.random()*abc.length)]).join('');
+        return `99P-${bloque(4)}-${bloque(4)}`;
+    }
+
+    // ---- Modal de compra ----
+    const modal   = document.getElementById('buy-modal');
+    const codeEl  = document.getElementById('buy-code');
+    const titleEl = document.getElementById('buy-title');
+    const payBtn  = document.getElementById('buy-paypal');
+
+    function abrirModal(nombre) {
+        const codigo = generarCodigo();
+        codeEl.textContent = codigo;
+        titleEl.textContent = nombre;
+        payBtn.href = `https://paypal.me/${PAYPAL_USER}/${PRECIO}`;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function cerrarModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => { window.location.href = 'checkout.html'; });
+    });
+
+    document.getElementById('buy-close').addEventListener('click', cerrarModal);
+    modal.addEventListener('click', e => { if (e.target === modal) cerrarModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
+
+    // ---- Copiar codigo ----
+    document.getElementById('buy-copy').addEventListener('click', async function () {
+        const txt = codeEl.textContent;
+        try { await navigator.clipboard.writeText(txt); }
+        catch (e) {
+            const ta = document.createElement('textarea');
+            ta.value = txt; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); ta.remove();
+        }
+        this.textContent = 'Copiado';
+        setTimeout(() => { this.textContent = 'Copiar'; }, 2000);
+    });
+
+    // ---- Scroll suave ----
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const dest = link.getAttribute('href');
+            if (dest === '#') return;
+            const sec = document.querySelector(dest);
+            if (sec) { e.preventDefault(); sec.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+</script>
 
 
+
+<!-- ===== MODAL DE COMPRA ===== -->
+<div id="buy-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4" style="background:rgba(0,0,0,.85);backdrop-filter:blur(8px)">
+  <div class="w-full max-w-md bg-surface-container border border-primary p-6" style="box-shadow:0 0 30px rgba(255,0,51,.4)">
+    <div class="flex justify-between items-start mb-5">
+      <div>
+        <p class="font-label-sm text-label-sm text-primary uppercase">// Pedido generado</p>
+        <h3 class="font-headline-lg text-xl text-on-surface mt-1" id="buy-title">Script</h3>
+      </div>
+      <button id="buy-close" class="text-on-surface-variant hover:text-primary text-2xl leading-none">&times;</button>
+    </div>
+
+    <p class="font-body-md text-sm text-on-surface-variant mb-2">Tu codigo de pedido:</p>
+    <div class="flex items-center gap-2 mb-5">
+      <code id="buy-code" class="flex-1 bg-surface-container-lowest border border-[#4D4D4D] px-4 py-3 font-label-sm text-primary text-base tracking-widest">--------</code>
+      <button id="buy-copy" class="border border-primary text-primary px-4 py-3 font-button-text hover:bg-primary hover:text-black transition-colors">Copiar</button>
+    </div>
+
+    <ol class="font-body-md text-sm text-on-surface-variant space-y-3 mb-6">
+      <li><span class="text-primary font-bold">1.</span> Paga en PayPal y <strong class="text-on-surface">pega el codigo en la nota del pago</strong>.</li>
+      <li><span class="text-primary font-bold">2.</span> Entra al Discord y manda el mismo codigo por mensaje.</li>
+      <li><span class="text-primary font-bold">3.</span> Verifico el pago y te envio el script.</li>
+    </ol>
+
+    <a id="buy-paypal" href="#" target="_blank" rel="noopener" class="block w-full text-center bg-primary-container text-black py-3 font-button-text uppercase mb-3 hover:opacity-90 transition-opacity">Pagar con PayPal</a>
+    <a class="js-discord block w-full text-center bg-transparent border border-primary text-primary py-3 font-button-text uppercase hover:bg-primary/10 transition-colors" href="#" target="_blank" rel="noopener">Abrir Discord</a>
+  </div>
+</div>
 </body></html>
