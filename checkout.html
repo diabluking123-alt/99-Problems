@@ -1,1 +1,328 @@
 
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Checkout - #99 PROBLEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-background": "#e5e2e1",
+                    "secondary-container": "#474746",
+                    "on-error-container": "#ffdad6",
+                    "inverse-primary": "#bf0024",
+                    "outline": "#b08784",
+                    "inverse-on-surface": "#313030",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "primary-fixed-dim": "#ffb3af",
+                    "surface-container-high": "#2a2a2a",
+                    "tertiary-fixed": "#e4e2e2",
+                    "on-surface-variant": "#e9bcb9",
+                    "surface-dim": "#131313",
+                    "on-primary-container": "#5c000b",
+                    "surface-container": "#201f1f",
+                    "on-error": "#690005",
+                    "primary-fixed": "#ffdad8",
+                    "on-secondary-container": "#b7b5b4",
+                    "outline-variant": "#5f3e3d",
+                    "on-tertiary": "#303030",
+                    "tertiary": "#c8c6c6",
+                    "tertiary-container": "#919090",
+                    "on-primary-fixed-variant": "#930019",
+                    "surface": "#131313",
+                    "background": "#131313",
+                    "secondary-fixed": "#e5e2e1",
+                    "primary": "#ffb3af",
+                    "primary-container": "#ff5357",
+                    "error-container": "#93000a",
+                    "on-primary": "#68000e",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "on-secondary-fixed-variant": "#474746",
+                    "error": "#ffb4ab",
+                    "surface-bright": "#3a3939",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface-variant": "#353534",
+                    "on-surface": "#e5e2e1",
+                    "surface-tint": "#ffb3af",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary-container": "#292a2a",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-container-highest": "#353534",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "on-secondary": "#313030",
+                    "on-primary-fixed": "#410006",
+                    "secondary": "#c8c6c5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": [
+                            "Space Grotesk"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "label-sm": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-xl": [
+                            "Space Grotesk"
+                    ],
+                    "headline-lg": [
+                            "Space Grotesk"
+                    ],
+                    "button-text": [
+                            "Space Grotesk"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "button-text": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Modern Cyber-Brutalism specific overrides */
+        body {
+            background-color: #0A0A0A;
+            color: theme('colors.on-background');
+        }
+        
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #4D4D4D;
+        }
+
+        .neon-glow-hover:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+            border-color: #ff5357;
+        }
+        
+        .scanline-overlay {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        
+        /* Disable Top Nav per instructions for Transactional screen */
+        .hide-nav-shell {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md antialiased relative">
+<!-- Background Watermark -->
+<div class="fixed inset-0 z-[-1] flex items-center justify-center opacity-5 pointer-events-none">
+<img alt="" class="w-1/2 max-w-[600px] grayscale" src="https://lh3.googleusercontent.com/aida/AEtjO1WgxQqdAOw3VfwqLJbhTLQYB920MGssxatcumHsaOXHGYcnZgQuQKv5k_QUoU5-As-tKMK81UBWMlXxVml0UqZRUkma3TmZTJclYxVn5Y5URwh37oM1Flx-hCJm3c6S1Eq7iBBZLider6XT9jy9cTxW_6oSlsdtp-8vdmffQZk98voeuNM-dpwHflPXI6dNNfpI9b0exKs9TYDoS5UNrSFT9-eLr5BpB3JvfHcl4uEg9PkiNmrK47hgtQ">
+</div>
+<!-- Main Content Area - Checkout -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative z-10 pt-20">
+<div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Left Column: Order Summary -->
+<div class="glass-panel p-8 relative overflow-hidden flex flex-col justify-between h-full">
+<div class="absolute inset-0 scanline-overlay z-0"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-4 border-b-2 border-[#1A1A1A] pb-6 mb-6">
+<div class="w-12 h-12 flex-shrink-0 relative group">
+  <div class="absolute inset-0 bg-primary-container opacity-20 blur-lg rounded-full group-hover:opacity-40 transition-opacity"></div>
+  <img src="https://lh3.googleusercontent.com/aida/AEtjO1WgxQqdAOw3VfwqLJbhTLQYB920MGssxatcumHsaOXHGYcnZgQuQKv5k_QUoU5-As-tKMK81UBWMlXxVml0UqZRUkma3TmZTJclYxVn5Y5URwh37oM1Flx-hCJm3c6S1Eq7iBBZLider6XT9jy9cTxW_6oSlsdtp-8vdmffQZk98voeuNM-dpwHflPXI6dNNfpI9b0exKs9TYDoS5UNrSFT9-eLr5BpB3JvfHcl4uEg9PkiNmrK47hgtQ" alt="Wolf Logo" class="w-full h-full object-contain relative z-10 drop-shadow-[0_0_8px_rgba(255,83,87,0.8)]">
+</div>
+<h1 class="font-headline-lg text-headline-lg md:text-headline-lg text-on-background uppercase tracking-tighter">Order Summary</h1>
+</div>
+<div class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container mb-2">Script Pubg #99 Problems</h2>
+<p class="text-on-surface-variant mb-6 text-sm">Advanced PUBG configuration for XIM Matrix. Designed for competitive edge.</p>
+<ul class="space-y-4 font-label-sm text-label-sm text-on-surface">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container text-lg">check_circle</span>
+<span class="">LIFETIME UPDATES &amp; TWEAKS</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container text-lg">check_circle</span>
+<span class="">EXCLUSIVE DISCORD ROLE</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container text-lg">check_circle</span>
+<span class="">OPTIMIZED XML CONFIG FILES</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container text-lg">check_circle</span>
+<span class="">DISCORD SUPPORT FOR QUESTIONS</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="relative z-10 border-t-2 border-[#1A1A1A] pt-6 flex justify-between items-end mt-8">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant mb-1">TOTAL DUE</span>
+<span class="font-headline-xl text-headline-xl text-on-background">$29.99</span>
+</div>
+<div class="text-right">
+<span class="inline-block bg-[#1A1A1A] text-on-surface px-3 py-1 font-label-sm text-[10px] uppercase border border-[#4D4D4D]">Pago via PayPal</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Payment Methods -->
+<div class="glass-panel p-8 relative flex flex-col justify-center">
+<div class="absolute inset-0 scanline-overlay z-0"></div>
+<div class="relative z-10">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-8 uppercase tracking-tight flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">payment</span>
+                        Payment Method
+                    </h2>
+<div class="space-y-6">
+<!-- Codigo de pedido -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">TU CODIGO DE PEDIDO</label>
+<div class="flex gap-2">
+<code id="order-code" class="flex-1 bg-[#131313] border border-[#4D4D4D] text-primary-container p-4 font-label-sm text-lg tracking-widest">--------</code>
+<button id="copy-code" class="border-2 border-primary-container text-primary-container px-5 font-button-text text-button-text uppercase hover:bg-primary-container hover:text-black transition-colors">Copiar</button>
+</div>
+</div>
+<!-- PayPal Button (Primary Focus) -->
+<div class="pt-4">
+<a id="paypal-link" href="#" target="_blank" rel="noopener" class="w-full bg-[#ffc439] hover:bg-[#f4bb33] text-[#003087] font-bold py-5 px-6 flex items-center justify-center gap-3 transition-all duration-300 neon-glow-hover transform hover:-translate-y-1 relative group overflow-hidden">
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+<!-- PayPal Logo Placeholder (SVG representation) -->
+<svg class="h-6 fill-current" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+<path d="M71.2,18.3c-0.6-2.9-2.9-4.2-6.5-4.2h-7.8c-1.1,0-1.9,0.8-2.1,1.9L49,43.2c-0.1,0.8,0.5,1.5,1.3,1.5h6.3 c0.9,0,1.7-0.6,1.8-1.5l1.6-9.8c0.1-0.9,0.9-1.5,1.8-1.5h2.5c5.3,0,9.3-2.2,10.6-8.5C75.5,21.5,74.5,18.3,71.2,18.3z M66.3,27.1 c-0.7,4.3-4.2,4.3-7.5,4.3h-1.9l2-12.7h1.9C64,18.8,67.3,19.3,66.3,27.1z"></path>
+<path d="M96.7,21.5c-2-2.1-5.3-2.9-8.4-2.9h-7.1c-1.1,0-1.9,0.8-2.1,1.9L74,43.2c-0.1,0.8,0.5,1.5,1.3,1.5h6 c0.9,0,1.6-0.6,1.8-1.5l1.4-8.8h3c5.3,0,9.2-2.3,10.5-8.5C98.8,22.8,97.7,21.5,96.7,21.5z"></path>
+</svg>
+<span class="font-button-text text-button-text tracking-wider uppercase">Pagar con PayPal</span>
+</a>
+</div>
+
+<div class="border-t border-[#333] pt-6 space-y-4">
+<p class="font-label-sm text-label-sm text-primary-container uppercase">// Como recibir tu script</p>
+<ol class="font-body-md text-body-md text-on-surface-variant space-y-3">
+<li><span class="text-primary-container font-bold">01.</span> Paga en PayPal y <span class="text-on-background">pega tu codigo en la nota del pago</span>.</li>
+<li><span class="text-primary-container font-bold">02.</span> Entra al Discord y manda el mismo codigo.</li>
+<li><span class="text-primary-container font-bold">03.</span> Verificamos el pago y te enviamos el script.</li>
+</ol>
+<a id="discord-link" href="#" target="_blank" rel="noopener" class="w-full bg-transparent border-2 border-primary-container text-primary-container py-4 px-6 flex items-center justify-center gap-3 hover:bg-primary-container hover:text-black transition-all font-button-text text-button-text uppercase tracking-wider">
+<span class="material-symbols-outlined">forum</span> Abrir Discord
+</a>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component from JSON -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest text-primary dark:text-primary w-full py-12 border-t-2 border-surface-variant grid grid-cols-1 md:grid-cols-2 gap-gutter px-margin-desktop max-w-container-max mx-auto relative z-10">
+<div class="flex flex-col gap-4">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary tracking-tighter">#99 PROBLEMS</span>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2026 #99 PROBLEMS. ALL SYSTEMS NOMINAL.</p>
+</div>
+<div class="flex flex-wrap gap-4 md:justify-end items-start font-label-sm text-label-sm">
+
+
+
+
+</div>
+</footer>
+
+
+<script>
+    /* ===== CONFIGURACION — CAMBIA SOLO ESTAS 3 LINEAS ===== */
+    const DISCORD_URL = "https://discord.gg/dqX5Z9PBw";
+    const PAYPAL_USER = "DiabluU";     // solo el usuario de paypal.me
+    const PRECIO      = "29.99";       // debe coincidir con TOTAL DUE
+    /* ====================================================== */
+
+    function generarCodigo() {
+        const abc = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        const b = n => Array.from({length:n}, () => abc[Math.floor(Math.random()*abc.length)]).join('');
+        return `99P-${b(4)}-${b(4)}`;
+    }
+    const codigo = generarCodigo();
+    document.getElementById('order-code').textContent = codigo;
+    document.getElementById('paypal-link').href = `https://paypal.me/${PAYPAL_USER}/${PRECIO}`;
+    document.getElementById('discord-link').href = DISCORD_URL;
+
+    document.getElementById('copy-code').addEventListener('click', async function () {
+        try { await navigator.clipboard.writeText(codigo); }
+        catch (e) {
+            const ta = document.createElement('textarea');
+            ta.value = codigo; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); ta.remove();
+        }
+        this.textContent = 'Copiado';
+        setTimeout(() => { this.textContent = 'Copiar'; }, 2000);
+    });
+</script>
+</body></html>
