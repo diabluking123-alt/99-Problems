@@ -167,33 +167,33 @@
 </div>
 <div class="flex-grow flex flex-col justify-center gap-6">
 <div>
-<label class="block font-label-sm text-label-sm text-secondary mb-2">TU CODIGO DE PEDIDO</label>
+<label class="block font-label-sm text-label-sm text-secondary mb-2" data-i18n="codLbl">TU CODIGO DE PEDIDO</label>
 <div class="flex gap-2">
 <code id="order-code" class="flex-1 bg-surface-container-lowest border border-surface-variant text-primary p-4 font-label-sm text-lg tracking-widest rounded">--------</code>
-<button id="copy-code" class="border border-primary text-primary px-5 font-button-text text-button-text uppercase rounded hover:bg-primary hover:text-black transition-colors">Copiar</button>
+<button id="copy-code" class="border border-primary text-primary px-5 font-button-text text-button-text uppercase rounded hover:bg-primary hover:text-black transition-colors" data-i18n="copiar">Copiar</button>
 </div>
 </div>
 
 <a id="paypal-link" href="#" target="_blank" rel="noopener" class="w-full bg-[#FFC439] hover:bg-[#F4BB33] text-black font-button-text text-button-text py-4 rounded transition-colors duration-200 flex items-center justify-center gap-2 shadow-lg">
 <span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
-PAGAR CON PAYPAL
+<span data-i18n="pagarMay">PAGAR CON PAYPAL</span>
 </a>
 
 <div class="border-t border-surface-variant pt-6 space-y-4">
-<p class="font-label-sm text-label-sm text-primary uppercase">// Como recibir tu script</p>
+<p class="font-label-sm text-label-sm text-primary uppercase" data-i18n="comoRec">// Como recibir tu script</p>
 <ol class="font-body-md text-body-md text-secondary space-y-3">
-<li><span class="text-primary font-bold">01.</span> Paga en PayPal y <span class="text-on-surface">pega tu codigo en la nota del pago</span>.</li>
+<li><span class="text-primary font-bold">01.</span> Paga en PayPal y <span class="text-on-surface" data-i18n="p1b">pega tu codigo en la nota del pago</span>.</li>
 <li><span class="text-primary font-bold">02.</span> Entra al Discord y manda el mismo codigo.</li>
 <li><span class="text-primary font-bold">03.</span> Verificamos el pago y te enviamos el script.</li>
 </ol>
 <a id="discord-link" href="#" target="_blank" rel="noopener" class="w-full bg-transparent border border-primary text-primary py-4 rounded flex items-center justify-center gap-2 hover:bg-primary hover:text-black transition-colors font-button-text text-button-text uppercase">
-<span class="material-symbols-outlined">forum</span> Abrir Discord
+<span class="material-symbols-outlined">forum</span> <span data-i18n="abrirDc">Abrir Discord</span>
 </a>
 </div>
 
 <div class="flex items-center justify-center gap-2 text-surface-variant">
 <span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
-<span class="font-label-sm text-label-sm text-secondary">PAGO PROCESADO POR PAYPAL</span>
+<span class="font-label-sm text-label-sm text-secondary" data-i18n="selloPPMay">PAGO PROCESADO POR PAYPAL</span>
 </div>
 </div>
 </div>
@@ -242,8 +242,36 @@ PAGAR CON PAYPAL
             ta.value = codigo; document.body.appendChild(ta);
             ta.select(); document.execCommand('copy'); ta.remove();
         }
-        this.textContent = 'Copiado';
-        setTimeout(() => { this.textContent = 'Copiar'; }, 2000);
+        this.textContent = document.documentElement.lang === 'en' ? 'Copied' : 'Copiado';
+        setTimeout(() => { this.textContent = document.documentElement.lang === 'en' ? 'Copy' : 'Copiar'; }, 2000);
     });
+
+    /* ===== TRADUCCIONES ===== */
+    const T = {
+      codLbl:"YOUR ORDER CODE", copiar:"Copy",
+      pagar:"Pay with PayPal", pagarMay:"PAY WITH PAYPAL",
+      abrirDc:"Open Discord", selloPP:"Paid via PayPal",
+      selloPPMay:"PAYMENT PROCESSED BY PAYPAL",
+      comoRec:"// How to get your script",
+      p1a:"Pay on PayPal and", p1b:"paste your code in the payment note",
+      p2:"Join the Discord and send the same code.",
+      p3:"We verify the payment and send you the script."
+    };
+    const ES = {};
+    document.querySelectorAll('[data-i18n]').forEach(e => {
+        if (!(e.dataset.i18n in ES)) ES[e.dataset.i18n] = e.textContent;
+    });
+    function aplicar(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(e => {
+            const k = e.dataset.i18n;
+            e.textContent = (lang === 'en' && T[k]) ? T[k] : ES[k];
+        });
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('lang99', lang); } catch (e) {}
+    }
+    let g = null;
+    try { g = localStorage.getItem('lang99'); } catch (e) {}
+    aplicar(g || ((navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en'));
+
 </script>
 </body></html>
